@@ -30,14 +30,14 @@ loopw:
       ; We want r16 = r16 + 1 using only logic gates
     ldi r17, 1              ; We are adding '1' to the accumulator
 
-add:
+addl:
     mov r18, r16            ; Save copy of current accumulator
     eor r16, r17            ; SUM = A XOR B (Calculate sum without carry)
     and r18, r17            ; CARRY = A AND B (Calculate where carries happen)
     lsl r18                 ; Shift Carry to the left (Carry goes to next bit)
     mov r17, r18            ; Move new carry to r17
     tst r17                 ; Check if Carry is 0
-    brne add        ; If Carry exists, repeat loop
+    brne addl        ; If Carry exists, repeat loop
 
 
     cpi r16, 10             ; Compare result with 10
