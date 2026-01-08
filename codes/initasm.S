@@ -18,7 +18,7 @@ push r16
    ldi r16,high(RAMEND)*/;0x08
 
 
-   out SPH,r16
+   # out SPH,r16
 	ldi r16,0b00111100	;identifying output pins 2,3,4,5
 	out DDRD,r16
 	;declaring pins as output

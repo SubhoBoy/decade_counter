@@ -10,5 +10,5 @@ load_mem:
   ldi xh,0x01		;loading memory address higher byte into r27
   ldi r16,0b00000000	;initializing W
   st  x,r16		;storing W in 0x0100 address
-
+ret
 
