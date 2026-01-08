@@ -7,6 +7,13 @@
 .section .text
 
 disp_scrn:
+push r16
+    push r17
+    push r26        ; XL
+    push r27        ; XH
+
+  ldi xl, 0x00
+  ldi xh, 0x01
 
   ldi r22, 0b00000010	;counter = 0
   ld  r0, x		;load number from memory
@@ -39,5 +46,9 @@ add:
 
 save:
     st x, r16               ; Save new value to memory
+    pop r27
+    pop r26
+    pop r17
+    pop r16
     ret
 	;shifting LSB in r24 to 6th position

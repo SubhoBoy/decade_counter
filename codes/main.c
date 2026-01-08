@@ -15,7 +15,7 @@ int main (void) {
 	load_mem();
 	while (1) {
 		disp_scrn();
-		delay(61);
+		delay(40);
 	}
 	return 0;
 }

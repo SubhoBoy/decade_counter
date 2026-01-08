@@ -3,7 +3,7 @@
 
 
 ;.include "../../setup/m328Pdef/m328Pdef.inc"
-.include "/root/m328Pdef.inc"
+.include "/home/subho/m328Pdef.inc"
 
 sbi DDRB, 5 ;set pin 13 as output pin (DDRB pin 5)
 ldi r16, 0b00000101 ;the last 3 bits define the prescaler, 101 => division by 1024
@@ -58,7 +58,7 @@ add:
     brne add        ; If Carry exists, repeat loop
 
 
-    cpi r16, 10             ; Compare result with 10
+    cpi r16, 8             ; Compare result with 10
     brne save       ; If not 10, skip reset
     ldi r16, 0              ; If 10, reset counter to 0
 
