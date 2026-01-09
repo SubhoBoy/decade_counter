@@ -1,4 +1,5 @@
 .pio
+*.obj
 *.o
 *.hex
 *.eep
