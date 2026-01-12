@@ -7,11 +7,11 @@
 MCU = atmega328p
 F_CPU=16000000
 FORMAT = ihex
-TARGET = main
+TARGET = main2
 #TARGET = count
 SRC = $(TARGET).c
 #ASRC = initasm.S 
-ASRC = initasm.S delayasm.S decadeasm.S
+#ASRC = initasm.S delayasm.S decadeasm.S
 OPT = s
 
 CMD_FLASH=avrdude
