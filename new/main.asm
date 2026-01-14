@@ -1,5 +1,5 @@
 ; Reimplementation. Decade counter as per 7474
-.include "/home/subho/m328Pdef.inc"
+.include "/root/m328Pdef.inc"
 
 ; y didn't i find this before
 .def rT = r16
@@ -28,6 +28,9 @@
     ; 13 OUTPUT 
     ldi rT, 0b00100000
     out DDRB, rT
+
+ldi r16, 0b00000101 
+out TCCR0B, r16
     
 loop:
     in rT, PIND
@@ -123,15 +126,27 @@ loop:
 
     sbi PORTB, 5      ; clk high
     
-    ldi r24, low(200)
-    ldi r25, high(200)
-    rcall del
+    ;ldi r24, low(200)
+    ;ldi r25, high(200)
+    ;rcall del
+    ldi  r27, 61
+    call PAUSE
 
     cbi PORTB, 5      ; clk low
     
     rjmp loop
 
 
+PAUSE:	
+lp2:	;loop runs 64 times
+		IN r20, TIFR0 ;tifr is timer interupt flag 
+		ldi r21, 0b00000010
+		AND r20, r21 ;need second bit
+		BREQ PAUSE 
+		OUT TIFR0, r21	;set tifr flag high
+	dec r27
+	brne lp2
+	ret
 del:
     push r24
     push r25

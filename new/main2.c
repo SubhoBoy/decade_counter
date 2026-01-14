@@ -1,4 +1,5 @@
 #include <avr/io.h>
+#include <util/delay.h>
 #include <stdint.h>
 
 #define F_CPU 16000000UL
@@ -16,7 +17,7 @@
 void init(void);
 void logic(void);
 void clock(uint8_t val);
-void delay_10ms_ticks(uint8_t val);
+void delay(uint8_t val);
 
 int main(void) {
     init();
@@ -25,9 +26,9 @@ int main(void) {
         logic();
 
         clock(1);        
-        delay_10ms_ticks(20);
+        //delay(100);
+	_delay_ms(500);
         clock(0);        
-        //delay_10ms_ticks(1); 
     }
     return 0;
 }
@@ -35,22 +36,20 @@ int main(void) {
 void init(void) {
     DDRD |= (1 << PIN_A) | (1 << PIN_B) | (1 << PIN_C) | (1 << PIN_D);
     DDRD &= ~((1 << PIN_W) | (1 << PIN_X));
-    // Configure Output Pin (LED on PORTB)
     DDRB |= (1 << PIN_CLK);
-    // Configure Input Pins (Y, Z on PORTB)
     DDRB &= ~((1 << PIN_Y) | (1 << PIN_Z));
 
     TCCR0A = (1 << WGM01); //CTC
-    TCCR0B = (1 << CS02) | (1 << CS00); //Prescaler
+    TCCR0B = 0b00000101; // Prescaler
     OCR0A = 156; //compare
 }
 
 void logic(void) {
     // only want that specifc bit
-    uint8_t w = (PIND >> PIN_W) & 1;
-    uint8_t x = (PIND >> PIN_X) & 1;
-    uint8_t y = (PINB >> PIN_Y) & 1;
-    uint8_t z = (PINB >> PIN_Z) & 1;
+    uint8_t w = ((PIND >> PIN_W) & 1)^1;
+    uint8_t x = ((PIND >> PIN_X) & 1)^1;
+    uint8_t y = ((PINB >> PIN_Y) & 1)^1;
+    uint8_t z = ((PINB >> PIN_Z) & 1)^1;
 
     uint8_t a = !w;
     uint8_t b = ((w^x)&!z);
@@ -71,12 +70,12 @@ void clock(uint8_t val) {
     }
 }
 
-void delay_10ms_ticks(uint8_t ticks) {
-    while (ticks > 0) {
+void delay(uint8_t val) {
+    while (val > 0) {
         while (!(TIFR0 & (1 << OCF0A))); //timer done
 
         TIFR0 |= (1 << OCF0A); //clear
 
-        ticks--;
+        val--;
     }
 }
