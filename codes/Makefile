@@ -11,7 +11,7 @@ TARGET = main
 #TARGET = count
 SRC = $(TARGET).c
 #ASRC = initasm.S 
-ASRC = initasm.S dispscrnasm.S delayasm.S loadmemasm.S
+#ASRC = initasm.S dispscrnasm.S delayasm.S loadmemasm.S
 OPT = s
 
 CMD_FLASH=avrdude
