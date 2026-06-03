@@ -27,7 +27,7 @@ int main(void) {
 
         clock(1);        
         //delay(100);
-	_delay_ms(500);
+        delay(100);
         clock(0);        
     }
     return 0;
@@ -46,10 +46,10 @@ void init(void) {
 
 void logic(void) {
     // only want that specifc bit
-    uint8_t w = ((PIND >> PIN_W) & 1)^1;
-    uint8_t x = ((PIND >> PIN_X) & 1)^1;
-    uint8_t y = ((PINB >> PIN_Y) & 1)^1;
-    uint8_t z = ((PINB >> PIN_Z) & 1)^1;
+    uint8_t w = ((PIND >> PIN_W) & 1);
+    uint8_t x = ((PIND >> PIN_X) & 1);
+    uint8_t y = ((PINB >> PIN_Y) & 1);
+    uint8_t z = ((PINB >> PIN_Z) & 1);
 
     uint8_t a = !w;
     uint8_t b = ((w^x)&!z);
